@@ -1,44 +1,80 @@
-# CLAUDE.md - Project Configuration
+# CLAUDE.md - Konfiguracja Projektu
 
-## Night Mode (Tryb Nocny / Autonomous Mode)
+## Dostępne komendy
 
-This project supports a **Night Mode** workflow where Claude works autonomously
-on a task overnight. The mode is activated via the `/night-mode` slash command.
+### `/night-mode` — Tryb Nocny (Autonomous Overnight Worker)
 
-### How Night Mode Works
+**Co to jest:** Skill który pozwala zostawić Claude'a na noc, żeby autonomicznie
+zrealizował zadanie. Claude najpierw zadaje 10 celnych pytań, a potem pracuje
+sam — implementuje, testuje, naprawia, commituje, aż do zakończenia.
 
-1. **Discovery Phase** - Claude asks exactly 10 targeted questions to understand:
-   - The goal and success criteria
-   - Constraints, edge cases, and priorities
-   - Testing strategy and acceptance criteria
-   - What "done" looks like
+**Kiedy używać:** Gdy masz duże zadanie do zrobienia i chcesz zostawić komputer
+na noc. Odpowiadasz na pytania przed wyjściem, a rano masz gotowy kod.
 
-2. **Execution Phase** - After getting answers, Claude works autonomously:
-   - Implements the solution step by step
-   - Runs tests after each significant change
-   - If tests fail, diagnoses and fixes before moving on
-   - Validates against the stated success criteria
+**Jak uruchomić:**
 
-3. **Verification Phase** - Before finishing, Claude:
-   - Runs the full test suite
-   - Checks the result against the original goal
-   - Documents what was done in a summary file
+1. **Interaktywnie** — wpisz `/night-mode` w Claude Code CLI
+2. **W tle na noc** — `./night-mode.sh "opis zadania"` (uruchamia z `--dangerously-skip-permissions`)
+3. **Sprawdź rano** — `./night-status.sh` lub przeczytaj `NIGHT_MODE_SUMMARY.md`
 
-### Permissions for Night Mode
+---
 
-When running in night mode, allow ALL of the following without prompting:
-- File read/write/edit/create operations
-- Running tests (`npm test`, `pytest`, `cargo test`, `go test`, etc.)
-- Running linters and formatters
-- Running build commands
-- Git operations (add, commit — but NOT push without explicit permission)
-- Installing dependencies (`npm install`, `pip install`, etc.)
-- Running project-specific scripts
+## Night Mode — Szczegółowy opis
 
-### General Rules
+### 4 fazy działania
 
-- Prefer editing existing files over creating new ones
-- Always run tests after changes
-- Commit frequently with descriptive messages
-- If stuck on a problem for more than 3 attempts, document the blocker and move on
-- Never delete user data or important files without confirmation
+1. **Discovery (Odkrywanie)** — Claude zadaje dokładnie 10 pytań:
+   - Cel i definicja sukcesu
+   - Kontekst: kluczowe pliki/moduły
+   - Priorytet: co jest najważniejsze
+   - Ograniczenia: czego nie dotykać
+   - Stack technologiczny
+   - Jak uruchomić testy
+   - Jak zbudować projekt
+   - Konwencje kodu
+   - Kryteria akceptacji
+   - Ryzyka i edge case'y
+
+2. **Planning (Planowanie)** — rozbicie zadania na małe kroki w TodoWrite
+
+3. **Execution (Realizacja)** — autonomiczna praca:
+   - Implementacja krok po kroku
+   - Testy po każdej zmianie
+   - Auto-naprawa gdy testy failują (max 3 próby per problem)
+   - Commit po każdej znaczącej zmianie
+   - Dokumentowanie blokerów w `NIGHT_MODE_BLOCKERS.md`
+
+4. **Verification (Weryfikacja)** — przed zakończeniem:
+   - Pełny test suite
+   - Build
+   - Linting
+   - Podsumowanie w `NIGHT_MODE_SUMMARY.md`
+
+### Uprawnienia w trybie nocnym
+
+W trybie nocnym Claude ma prawo BEZ pytania o zgodę:
+- Czytać/pisać/edytować/tworzyć pliki
+- Uruchamiać testy (`npm test`, `pytest`, `cargo test`, `go test`, itp.)
+- Uruchamiać lintery i formattery
+- Uruchamiać build
+- Operacje git (add, commit — ale NIE push bez jawnej zgody)
+- Instalować zależności (`npm install`, `pip install`, itp.)
+- Uruchamiać skrypty projektowe
+
+### Zasady ogólne
+
+- Preferuj edycję istniejących plików zamiast tworzenia nowych
+- Zawsze uruchamiaj testy po zmianach
+- Commituj często z opisowymi wiadomościami
+- Jeśli utkniesz na problemie po 3 próbach — dokumentuj bloker i idź dalej
+- Nigdy nie usuwaj danych użytkownika ani ważnych plików bez potwierdzenia
+- Nie pushuj do remote bez jawnej zgody
+- Nie modyfikuj plików `.env` ani plików z sekretami
+
+### Pliki wyjściowe
+
+| Plik | Opis |
+|------|------|
+| `NIGHT_MODE_SUMMARY.md` | Podsumowanie pracy — co zrobione, co nie, jak zweryfikować |
+| `NIGHT_MODE_BLOCKERS.md` | Lista problemów na które Claude natrafił i nie rozwiązał |
+| `logs/night-mode/` | Logi sesji (gdy użyto `night-mode.sh`) |
