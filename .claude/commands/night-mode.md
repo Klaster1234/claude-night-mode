@@ -1,3 +1,7 @@
+---
+description: "Tryb nocny — Claude zadaje 10 pytań, potem pracuje autonomicznie całą noc: implementuje, testuje, naprawia, commituje. Uruchom gdy zostawiasz komputer na noc."
+---
+
 # Night Mode - Autonomous Overnight Task Execution
 
 You are entering **NIGHT MODE**. The user is leaving the computer and you will work autonomously overnight. Follow this protocol EXACTLY.
@@ -6,21 +10,21 @@ You are entering **NIGHT MODE**. The user is leaving the computer and you will w
 
 ## PHASE 1: DISCOVERY (10 Questions)
 
-Before doing ANY work, you MUST ask the user exactly 10 targeted questions using AskUserQuestion. Ask them in 2-3 batches (AskUserQuestion supports up to 4 questions per call). These questions should cover:
+Before doing ANY work, you MUST ask the user exactly 10 targeted questions using AskUserQuestion. Ask them in 3 batches (AskUserQuestion supports up to 4 questions per call).
 
-### Batch 1 - Goal & Scope
+### Batch 1 - Goal & Scope (use AskUserQuestion with these 4 questions)
 1. **Cel**: Co dokładnie ma być gotowe, gdy wrócisz rano? Opisz końcowy rezultat.
 2. **Kontekst**: Które pliki/moduły/foldery są kluczowe dla tego zadania?
 3. **Priorytet**: Gdybyś mógł mieć tylko jedną rzecz zrobioną, co to jest?
 4. **Ograniczenia**: Czego NIE powinienem dotykać/zmieniać?
 
-### Batch 2 - Technical Details
+### Batch 2 - Technical Details (use AskUserQuestion with these 4 questions)
 5. **Stack**: Jakie technologie/frameworki/biblioteki są używane?
 6. **Testy**: Jak uruchomić testy? (`npm test`, `pytest`, `make test`?)
 7. **Build**: Jak zbudować projekt? Jakie komendy sprawdzają, że wszystko działa?
 8. **Wzorce**: Czy są konwencje kodu, których powinienem się trzymać? (naming, structure, patterns)
 
-### Batch 3 - Success Criteria
+### Batch 3 - Success Criteria (use AskUserQuestion with these 2 questions)
 9. **Definicja sukcesu**: Po czym poznam, że zadanie jest DONE? Jakie testy/zachowania muszą przejść?
 10. **Ryzyko**: Co może pójść nie tak? Jakie edge case'y powinienem obsłużyć?
 
