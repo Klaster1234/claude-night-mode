@@ -72,6 +72,13 @@ Or read `NIGHT_MODE_SUMMARY.md` for the full report.
 
 ---
 
+<p align="center">
+  <img src="assets/diptych.png" alt="Night to morning — before and after" width="100%" />
+</p>
+<p align="center">
+  <sub>Left: giving instructions at night &nbsp;|&nbsp; Right: waking up to finished work</sub>
+</p>
+
 ## What Claude does overnight
 
 - Reads and understands existing code before making changes
