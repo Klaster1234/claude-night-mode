@@ -1,0 +1,51 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test*)",
+      "Bash(npm run*)",
+      "Bash(npx *)",
+      "Bash(pytest*)",
+      "Bash(python -m pytest*)",
+      "Bash(cargo test*)",
+      "Bash(cargo build*)",
+      "Bash(go test*)",
+      "Bash(go build*)",
+      "Bash(make*)",
+      "Bash(npm install*)",
+      "Bash(pip install*)",
+      "Bash(cargo add*)",
+      "Bash(git add*)",
+      "Bash(git commit*)",
+      "Bash(git status*)",
+      "Bash(git diff*)",
+      "Bash(git log*)",
+      "Bash(git branch*)",
+      "Bash(git checkout*)",
+      "Bash(git stash*)",
+      "Bash(eslint*)",
+      "Bash(prettier*)",
+      "Bash(black*)",
+      "Bash(ruff*)",
+      "Bash(mypy*)",
+      "Bash(tsc*)",
+      "Bash(ls*)",
+      "Bash(mkdir*)",
+      "Bash(cat*)",
+      "Bash(head*)",
+      "Bash(tail*)",
+      "Bash(wc*)",
+      "Bash(find*)",
+      "Bash(grep*)",
+      "Bash(node*)",
+      "Bash(python*)",
+      "Bash(docker compose*)",
+      "Bash(docker build*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /)",
+      "Bash(git push --force*)",
+      "Bash(DROP TABLE*)",
+      "Bash(sudo rm*)"
+    ]
+  }
+}
